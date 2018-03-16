@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "type": 1,
+        "title": "This is a shortie title",
+        "writer": "John Doe",
+        "content": "Lorem ipsum dolor sit amet, \n\rconsectetur adipiscing elit."
+    },
+    
+    {
+        "id": 2,
+        "type": 4,
+        "title": "This is a story title",
+        "writer": "Jane Doe",
+        "content": "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit."
+    }
+]
