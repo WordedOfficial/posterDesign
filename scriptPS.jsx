@@ -31,6 +31,7 @@ function processWriteup(writeup) {
         shortieGroup.visible = true;
         titleLayer.visible = true;
         writerLayer.visible = true;
+        centerTextLayer(content);
     }
     
     else if (writeup.type == 2) {                                                 //If writeup is a scribble.
@@ -39,6 +40,7 @@ function processWriteup(writeup) {
         scribbleGroup.visible = true;
         titleLayer.visible = true;
         writerLayer.visible = true;
+        centerTextLayer(content);
     }
     
     else if (writeup.type == 3) {                                                 //If writeup is a poem.
@@ -47,6 +49,8 @@ function processWriteup(writeup) {
         poemGroup.visible = true;
         titleLayer.visible = true;
         writerLayer.visible = true;
+        centerTextLayer(content);
+        
     }
     
     else if (writeup.type == 4) {                                                 //If writeup is a story.
@@ -55,6 +59,7 @@ function processWriteup(writeup) {
         storyGroup.visible = true;
         titleLayer.visible = true;
         writerLayer.visible = true;
+        centerTextLayer(content);
     }
     
     saveJPEG(writeup.id);                                                         //Save the template.
@@ -70,7 +75,6 @@ function processWriteup(writeup) {
         writerLayer.visible = false;
     }
 }
-
 
 function loadJson(relPath) {
     var script = new File($.fileName);
@@ -90,3 +94,35 @@ function saveJPEG(name) {
     opts.quality = 10;                                                            //Sets Quality of JPEG output file to 10.
     doc.saveAs(file, opts, true);                                                 //Saves the file.
 }
+
+function centerTextLayer(textContent) {
+    var doc = app.activeDocument;
+    var background = doc.layers.getByName('Background');
+    background.isBackgroundLayer = true;
+    
+    var bounds = textContent.bounds;
+    
+	var allLock = textContent.allLocked;                                          //Remember text layer lock state.
+	var posLock = textContent.positionLocked;
+
+	textContent.allLocked = false;                                                //Unlock text layer.
+	textContent.positionLocked = false;
+    
+    var docWidth = Number(doc.width);                                             //Save document dimensions.
+	var docHeight = Number(doc.height);
+
+	var textContentWidth = Number(bounds[2] - bounds[0]);                         //Get text layer dimensions
+	var textContentHeight = Number(bounds[3] - bounds[1]);
+
+	var dX = (docWidth - textContentWidth) / 2 - Number(bounds[0]);               //Calculate offsets.
+	var dY = (docHeight - textContentHeight) / 2 - Number(bounds[1]);
+
+	textContent.translate(dX, dY);                                                //Centers text layer.
+
+	textContent.allLocked = allLock;                                              //Restore original layer lock state.
+	textContent.positionLocked = posLock;
+}
+
+/*
+Thanks to StackOverFlow, the Adobe Community, Juriy Bura, and my Mom.
+*/
