@@ -1,37 +1,36 @@
-## Welcome to GitHub Pages
+# This is posterDesign
 
-You can use the [editor on GitHub](https://github.com/WordedOfficial/posterDesign/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+JavaScript and JSON scripts to automate the process of designing on PhotoShop, potentially removing the need for a designer to manually design and export writeups.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+[What writeup designs are we talking about?](https://www.instagram.com/worded.official)
 
-### Markdown
+## How does it work?
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+### The JSON Script
+The JSON file contains details, such as, author name, title of the writeup, type, et cetera, about the writeups that need to be turned into posters.
 
 ```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+{
+        "id": 1,
+        "type": 1,
+        "title": "This is a shortie title",
+        "writer": "John Doe",
+        "content": "Lorem ipsum dolor sit amet, \n\rconsectetur adipiscing elit."
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+### The JSX Script
+The JSX script, id est, scriptPS.jsx, does 3 main things:
 
-### Jekyll Themes
+#### Reads the JSON File
+Please note: This is done using [json2.js](https://github.com/douglascrockford/JSON-js), and a few hacks in the function processWriteup.
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/WordedOfficial/posterDesign/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+#### Plugs in data from the JSON file to the selected layers
+Done in the function processWriteup where, using a bunch of if-else statements, the proper layers and layer groups are selected, edited, and made visible.
 
-### Support or Contact
+#### Centers the content text, and saves the file as JPEG
+The function centerTextLayer centers the content layer of the selected layer group, relative to the background of the canvas. After that's done, it proceeds on to save the entire thing to a JPEG image file, quality's a 10, just like my crush, and is done in the function saveJPEG.
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+## Know More 
+
+Who are we, and why are you reading this? We have the answer to the former, and it's [write here.](http://www.worded.xyz/)
